@@ -3,7 +3,7 @@ install:
 		pip install -r requirements.txt
 
 test:
-	python -m pytest -vv say_hi.py
+	python -m pytest -vv test_file.py
 
 format:
 	black *.py
