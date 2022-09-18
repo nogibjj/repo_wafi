@@ -1,10 +1,22 @@
 # Update the package list as you need
 boto3
 pylint
-click
 pytest
 pytest-cov
-fastapi
 requests
 openai
-python-youtube
+pytest
+click
+databricks
+databricks-cli
+ipython
+databricks-sql-connector
+databricks-connect==10.4.*
+fastapi
+uvicorn[standard]
+dask
+dask[distributed]
+jupyter
+s3fs
+bokeh
+streamlit
