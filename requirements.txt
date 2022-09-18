@@ -1,11 +1,5 @@
-# Update the package list as you need
-boto3
+pytest
 pylint
-pytest
-pytest-cov
-requests
-openai
-pytest
 click
 databricks
 databricks-cli
