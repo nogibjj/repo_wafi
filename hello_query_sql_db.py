@@ -13,7 +13,7 @@ def cli():
 @cli.command()
 @click.option(
     "--query",
-    default="SELECT * FROM anime_csv LIMIT 100",
+    default="SELECT * FROM anime_csv LIMIT 20",
     help="SQL query to execute",
 )
 def cli_query(query):
