@@ -2,7 +2,7 @@ from databricks import sql
 import os
 
 
-def querydb(query="SELECT * FROM default.anime_csv LIMIT 2"):
+def querydb(user_input):
     with sql.connect(
         server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
         http_path=os.getenv("DATABRICKS_HTTP_PATH"),
@@ -10,7 +10,7 @@ def querydb(query="SELECT * FROM default.anime_csv LIMIT 2"):
     ) as connection:
 
         with connection.cursor() as cursor:
-            cursor.execute(query)
+            cursor.execute(user_input)
             result = cursor.fetchall()
 
         for row in result:
