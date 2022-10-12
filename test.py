@@ -83,24 +83,12 @@ def word_tag(w1, w2, corpus=trainlist):
 
 
 # Create the emission matrix
-words_matrix = np.ones((len(numbered_input), len(corplist_tag_set)), dtype="float32")
+words_matrix = np.ones((len(corplist_words_set), len(corplist_tag_set)), dtype="float32")
 
-# Call the actual word based on index
-real_words = []
-for item in numbered_input:
-    if item == len(corplist_words_set):
-        item = int(item) - 1
-        real_words.append(corplist_words_set[item])
-        pass
-    else:
-        real_words.append(corplist_words_set[item])
-
-# Creating Emission Matrix
-for a, t1 in enumerate(real_words):
+prob_matrix = np.zeros((len(corplist_words_set), len(corplist_tag_set)), dtype='float32')
+for a, t1 in enumerate(corplist_words_set):
     for b, t2 in enumerate(corplist_tag_set):
-        words_matrix[a, b] = word_tag(t1, t2)[0] / word_tag(t1, t2)[1]
-        pass
-    pass
+        prob_matrix[a, b] = words_matrix[a, b] / np.sum(words_matrix[a, :])
 
 # Function to help transition matrix
 def t2_given_t1(t2, t1, corpus=trainlist):
@@ -127,7 +115,7 @@ for i, t1 in enumerate(corplist_tag_set):
 def help_pi(pi1, raw_corpus=training_corpus_lower):
     adding = 0
     for items in raw_corpus:
-        if items[0][1] == pi1:
+        if items[0][0] == pi1:
             adding += 1
             pass
         else:
@@ -137,11 +125,11 @@ def help_pi(pi1, raw_corpus=training_corpus_lower):
 
 
 # Create Initial State Prob
-pi = np.ones(len(corplist_tag_set), dtype="float32")
+pi = np.ones(len(corplist_words_set), dtype="float32")
 num = 0
-for item in corplist_tag_set:
+for item in corplist_words_set:
     pi[num] = help_pi(item)
     num += 1
     pass
 
-viterbi(numbered_input, pi, tags_matrix, words_matrix)
+viterbi(numbered_input, pi, tags_matrix, prob_matrix)
